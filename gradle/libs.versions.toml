@@ -5,6 +5,7 @@ androidxComposeBom = "2023.01.00"
 androidxComposeCompiler = "1.4.0-alpha02"
 androidxCore = "1.9.0"
 androidxEspresso = "3.5.1"
+androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 junit = "4.13.2"
 kotlin = "1.7.21"
@@ -20,7 +21,9 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
+androidx-test-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "androidxEspresso" }
 androidx-test-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 

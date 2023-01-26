@@ -16,7 +16,6 @@
 
 plugins {
     id("shortkuts.android.library")
-    id("shortkuts.android.compose")
 }
 
 android {
@@ -27,5 +26,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.compose.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.espresso.intents)
+    androidTestImplementation(libs.androidx.test.junit.ktx)
 }
