@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.ui.theme
+package com.diegocarloslima.shortkuts.sample.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

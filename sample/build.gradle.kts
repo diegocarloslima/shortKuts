@@ -20,10 +20,10 @@ plugins {
 }
 
 android {
-    namespace = "com.diegocarloslima.shortkuts"
+    namespace = "com.diegocarloslima.shortkuts.sample"
 
     defaultConfig {
-        applicationId = "com.diegocarloslima.shortkuts"
+        applicationId = "com.diegocarloslima.shortkuts.sample"
         versionCode = 1
         versionName = "0.1"
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts
+package com.diegocarloslima.shortkuts.sample
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
