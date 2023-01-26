@@ -30,7 +30,7 @@ allprojects {
             targetExclude("**/build/**/*.kt")
             // ktlint should be before licenseHeaderFile
             ktlint(libs.versions.ktlint.get()).userData(
-                kotlin.collections.mapOf(
+                mapOf(
                     "ktlint_code_style" to "android",
                 ),
             )
@@ -41,7 +41,7 @@ allprojects {
             targetExclude("**/build/**/*.kts")
             // ktlint should be before licenseHeaderFile
             ktlint(libs.versions.ktlint.get()).userData(
-                kotlin.collections.mapOf(
+                mapOf(
                     "ktlint_code_style" to "android",
                 ),
             )
@@ -52,11 +52,13 @@ allprojects {
             target("**/*.xml")
             targetExclude("**/build/**/*.xml")
             targetExclude(".idea/**/*.xml")
+            indentWithSpaces()
             trimTrailingWhitespace()
             endWithNewline()
         }
         format("markdown") {
             target("**/*.md")
+            indentWithSpaces()
             trimTrailingWhitespace()
             endWithNewline()
         }
