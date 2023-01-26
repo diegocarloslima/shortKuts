@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    includeBuild("build-logic")
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
+plugins {
+    id("shortkuts.android.library")
+    id("shortkuts.android.compose")
+}
+
+android {
+    namespace = "com.google.samples.apps.nowinandroid.shortkuts"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
+dependencies {
+    implementation(libs.androidx.compose.material3)
 }
-
-rootProject.name = "shortKuts"
-include(":sample")
-include(":shortkuts:lib")

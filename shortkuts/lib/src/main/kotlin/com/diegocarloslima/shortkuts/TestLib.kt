@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    includeBuild("build-logic")
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+package com.diegocarloslima.shortkuts
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 
-rootProject.name = "shortKuts"
-include(":sample")
-include(":shortkuts:lib")
+@Composable
+fun TestLibGreeting(name: String) {
+    Text(text = "Lib Hello $name!")
+}
