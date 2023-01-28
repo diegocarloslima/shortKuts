@@ -15,6 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Gradle wrapper validation
+        uses: gradle/wrapper-validation-action@v1
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -28,7 +31,60 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: Check spotless
-        run: ./gradlew spotlessCheck --no-configuration-cache
+        run: ./gradlew spotlessCheck --no-configuration-cache --stacktrace
+
+      - name: Check lint
+        run: ./gradlew lintDebug --stacktrace
 
       - name: Gradle assemble task
-        run: ./gradlew assemble
+        run: ./gradlew assemble --stacktrace
+
+      - name: Run unit tests
+        run: ./gradlew testDebug --stacktrace
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-reports
+          path: '**/build/reports/*'
+
+  androidTest:
+    needs: build
+    runs-on: macOS-latest
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        api-level: [ 21, 31 ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          script: ./gradlew connectedCheck --stacktrace
+
+      - name: Upload androidTests reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports-${{ matrix.api-level }}
+          path: '**/build/reports/androidTests'
