@@ -22,7 +22,7 @@ import android.content.Context
 import android.content.Intent
 
 /**
- * Convenience function to start an [Activity] [A].
+ * Convenience function to start an [Activity].
  * It can optionally execute [intentBlock] on an [Intent] receiver for additional configuration.
  *
  * @see Context.startActivity
