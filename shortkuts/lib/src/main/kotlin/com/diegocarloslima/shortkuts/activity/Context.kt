@@ -25,6 +25,8 @@ import android.content.Intent
  * Convenience function to start an [Activity].
  * It can optionally execute [intentBlock] on an [Intent] receiver for additional configuration.
  *
+ * @throws ActivityNotFoundException if there was no [Activity] found.
+ *
  * @see Context.startActivity
  */
 inline fun <reified A : Activity> Context.startActivity(intentBlock: Intent.() -> Unit = {}) {
@@ -42,7 +44,6 @@ inline fun <reified A : Activity> Context.startActivity(intentBlock: Intent.() -
  * @see Context.startActivity
  * @see Intent.setAction
  */
-@Throws(ActivityNotFoundException::class)
 fun Context.startActivity(action: String, intentBlock: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(intentBlock))
 }

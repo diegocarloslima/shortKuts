@@ -17,6 +17,7 @@
 package com.diegocarloslima.shortkuts.activity
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
@@ -24,60 +25,76 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import org.hamcrest.CoreMatchers.allOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@LargeTest
 @RunWith(AndroidJUnit4::class)
-class ContextTest {
+class ContextStartActivityTest {
 
-    @Test
-    fun startActivity() {
+    @Before
+    fun setup() {
         Intents.init()
-        with(ActivityScenario.launch(FirstTestActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity<SecondTestActivity>()
-            }
-        }
-        intended(hasComponent(SecondTestActivity::class.java.name))
+    }
+
+    @After
+    fun teardown() {
         Intents.release()
     }
 
     @Test
-    fun startActivityIntentBlock() {
-        Intents.init()
-        with(ActivityScenario.launch(FirstTestActivity::class.java)) {
+    fun startActivity() {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
             onActivity { activity ->
-                activity.startActivity<SecondTestActivity> {
+                activity.startActivity<SecondContextStartActivity>()
+            }
+        }
+        intended(hasComponent(SecondContextStartActivity::class.java.name))
+    }
+
+    @Test
+    fun startActivityIntentBlock() {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
+            onActivity { activity ->
+                activity.startActivity<SecondContextStartActivity> {
                     putExtra(TEST_EXTRA, true)
                 }
             }
         }
         intended(
             allOf(
-                hasComponent(SecondTestActivity::class.java.name),
+                hasComponent(SecondContextStartActivity::class.java.name),
                 hasExtra(TEST_EXTRA, true),
             ),
         )
-        Intents.release()
+    }
+
+    @Test(expected = ActivityNotFoundException::class)
+    fun startActivityUnregistered() {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
+            onActivity { activity ->
+                activity.startActivity<UnregisteredContextStartActivity>()
+            }
+        }
     }
 
     @Test
     fun startActivityAction() {
-        Intents.init()
-        with(ActivityScenario.launch(FirstTestActivity::class.java)) {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
             onActivity { activity ->
                 activity.startActivity(ACTION_TEST)
             }
         }
         intended(hasAction(ACTION_TEST))
-        Intents.release()
     }
 
     @Test
     fun startActivityActionIntentBlock() {
-        Intents.init()
-        with(ActivityScenario.launch(FirstTestActivity::class.java)) {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
             onActivity { activity ->
                 activity.startActivity(ACTION_TEST) {
                     putExtra(TEST_EXTRA, true)
@@ -90,12 +107,22 @@ class ContextTest {
                 hasExtra(TEST_EXTRA, true),
             ),
         )
-        Intents.release()
+    }
+
+    @Test(expected = ActivityNotFoundException::class)
+    fun startActivityInvalidAction() {
+        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
+            onActivity { activity ->
+                activity.startActivity(INVALID_ACTION)
+            }
+        }
     }
 }
 
-private const val TEST_EXTRA = "ContextTestExtra"
+private const val TEST_EXTRA = "ContextStartActivity"
 private const val ACTION_TEST = "com.diegocarloslima.shortkuts.activity.ACTION_TEST"
+private const val INVALID_ACTION = "com.diegocarloslima.shortkuts.activity.INVALID"
 
-class FirstTestActivity : Activity()
-class SecondTestActivity : Activity()
+class FirstContextStartActivity : Activity()
+class SecondContextStartActivity : Activity()
+class UnregisteredContextStartActivity : Activity()
