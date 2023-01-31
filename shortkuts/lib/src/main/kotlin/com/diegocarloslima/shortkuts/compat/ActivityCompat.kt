@@ -65,7 +65,9 @@ inline fun Activity.recreateSk() = ActivityCompat.recreate(this)
  * @see ActivityCompat.requestDragAndDropPermissions
  *
  */
-inline fun Activity.requestDragAndDropPermissionsSk(dragEvent: DragEvent): DragAndDropPermissionsCompat? =
+inline fun Activity.requestDragAndDropPermissionsSk(
+    dragEvent: DragEvent,
+): DragAndDropPermissionsCompat? =
     ActivityCompat.requestDragAndDropPermissions(this, dragEvent)
 
 /**
@@ -80,9 +82,9 @@ inline fun Activity.requestDragAndDropPermissionsSk(dragEvent: DragEvent): DragA
  *
  */
 inline fun Activity.requestPermissionsSk(
-    @Size(min = 1) permissions: Array<String>,
+    @Size(min = 1) permissions: List<String>,
     @IntRange(from = 0) requestCode: Int,
-) = ActivityCompat.requestPermissions(this, permissions, requestCode)
+) = ActivityCompat.requestPermissions(this, permissions.toTypedArray(), requestCode)
 
 /**
  * Uses [ActivityCompat] to find a view that was identified by the `android:id` XML attribute that
