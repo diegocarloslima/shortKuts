@@ -45,13 +45,6 @@ inline val Activity.referrerSk: Uri? get() = ActivityCompat.getReferrer(this)
 inline val Activity.isLaunchedFromBubbleSk: Boolean
     get() = ActivityCompat.isLaunchedFromBubble(this)
 
-inline var Activity.test: Int
-    get() {
-        TODO()
-    }
-    set(value) {
-    }
-
 /**
  * Uses [ActivityCompat] to recreate the activity with a new instance
  *
@@ -132,8 +125,3 @@ inline fun Activity.setLocusContextSk(locusId: LocusIdCompat? = null, bundle: Bu
  */
 inline fun Activity.shouldShowRequestPermissionRationaleSk(permission: String): Boolean =
     ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
-
-fun test(obj1: Any?, obj2: Any?) {
-    obj1.hashCode()
-    obj1.equals(obj2)
-}

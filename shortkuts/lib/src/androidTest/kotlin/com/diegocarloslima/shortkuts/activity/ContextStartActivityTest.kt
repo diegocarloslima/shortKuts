@@ -48,21 +48,17 @@ class ContextStartActivityTest {
 
     @Test
     fun startActivity() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity<SecondContextStartActivity>()
-            }
+        withFirstActivity {
+            startActivity<SecondContextStartActivity>()
         }
         intended(hasComponent(SecondContextStartActivity::class.java.name))
     }
 
     @Test
     fun startActivityIntentBlock() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity<SecondContextStartActivity> {
-                    putExtra(TEST_EXTRA, true)
-                }
+        withFirstActivity {
+            startActivity<SecondContextStartActivity> {
+                putExtra(TEST_EXTRA, true)
             }
         }
         intended(
@@ -75,30 +71,24 @@ class ContextStartActivityTest {
 
     @Test(expected = ActivityNotFoundException::class)
     fun startActivityUnregistered() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity<UnregisteredContextStartActivity>()
-            }
+        withFirstActivity {
+            startActivity<UnregisteredContextStartActivity>()
         }
     }
 
     @Test
     fun startActivityAction() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity(ACTION_TEST)
-            }
+        withFirstActivity {
+            startActivity(ACTION_TEST)
         }
         intended(hasAction(ACTION_TEST))
     }
 
     @Test
     fun startActivityActionIntentBlock() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity(ACTION_TEST) {
-                    putExtra(TEST_EXTRA, true)
-                }
+        withFirstActivity {
+            startActivity(ACTION_TEST) {
+                putExtra(TEST_EXTRA, true)
             }
         }
         intended(
@@ -122,6 +112,14 @@ class ContextStartActivityTest {
 private const val TEST_EXTRA = "ContextStartActivity"
 private const val ACTION_TEST = "com.diegocarloslima.shortkuts.activity.ACTION_TEST"
 private const val INVALID_ACTION = "com.diegocarloslima.shortkuts.activity.INVALID"
+
+private fun withFirstActivity(block: Activity.() -> Unit) {
+    with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
+        onActivity { activity ->
+            activity.block()
+        }
+    }
+}
 
 class FirstContextStartActivity : Activity()
 class SecondContextStartActivity : Activity()
