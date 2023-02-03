@@ -16,10 +16,14 @@
 
 import com.android.build.gradle.LibraryExtension
 import com.diegocarloslima.shortkuts.buildlogic.Config
+import com.diegocarloslima.shortkuts.buildlogic.androidTestImplementation
 import com.diegocarloslima.shortkuts.buildlogic.configureBaseKotlinAndroid
+import com.diegocarloslima.shortkuts.buildlogic.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.kotlin
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -37,10 +41,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
-//            dependencies {
-//                testImplementation(kotlin("test"))
-//                androidTestImplementation(kotlin("test"))
-//            }
+            dependencies {
+                testImplementation(kotlin("test"))
+                androidTestImplementation(kotlin("test"))
+            }
         }
     }
 }
