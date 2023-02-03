@@ -3,7 +3,9 @@
 
     <application>
         <activity android:name="com.diegocarloslima.shortkuts.activity.FirstContextStartActivity" />
-        <activity android:name="com.diegocarloslima.shortkuts.activity.SecondContextStartActivity">
+        <activity
+            android:name="com.diegocarloslima.shortkuts.activity.SecondContextStartActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.diegocarloslima.shortkuts.activity.ACTION_TEST" />
                 <category android:name="android.intent.category.DEFAULT" />

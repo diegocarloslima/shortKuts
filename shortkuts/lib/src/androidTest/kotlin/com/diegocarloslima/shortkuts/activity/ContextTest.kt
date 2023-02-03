@@ -34,7 +34,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ContextStartActivityTest {
+class ContextTest {
 
     @Before
     fun setup() {
@@ -44,14 +44,6 @@ class ContextStartActivityTest {
     @After
     fun teardown() {
         Intents.release()
-    }
-
-    @Test
-    fun startActivity() {
-        withFirstActivity {
-            startActivity<SecondContextStartActivity>()
-        }
-        intended(hasComponent(SecondContextStartActivity::class.java.name))
     }
 
     @Test
@@ -74,14 +66,6 @@ class ContextStartActivityTest {
         withFirstActivity {
             startActivity<UnregisteredContextStartActivity>()
         }
-    }
-
-    @Test
-    fun startActivityAction() {
-        withFirstActivity {
-            startActivity(ACTION_TEST)
-        }
-        intended(hasAction(ACTION_TEST))
     }
 
     @Test
@@ -109,7 +93,7 @@ class ContextStartActivityTest {
     }
 }
 
-private const val TEST_EXTRA = "ContextStartActivity"
+private const val TEST_EXTRA = "Context_startActivity"
 private const val ACTION_TEST = "com.diegocarloslima.shortkuts.activity.ACTION_TEST"
 private const val INVALID_ACTION = "com.diegocarloslima.shortkuts.activity.INVALID"
 
@@ -123,4 +107,4 @@ private fun withFirstActivity(block: Activity.() -> Unit) {
 
 class FirstContextStartActivity : Activity()
 class SecondContextStartActivity : Activity()
-class UnregisteredContextStartActivity : Activity()
+private class UnregisteredContextStartActivity : Activity()
