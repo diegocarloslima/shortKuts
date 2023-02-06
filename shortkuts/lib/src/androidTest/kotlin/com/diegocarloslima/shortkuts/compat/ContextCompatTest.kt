@@ -16,25 +16,51 @@
 
 package com.diegocarloslima.shortkuts.compat
 
+import android.app.LocaleManager
+import android.content.Context
 import android.content.ContextWrapper
+import android.view.LayoutInflater
+import android.view.accessibility.AccessibilityManager
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.filters.SdkSuppress
 import org.junit.Test
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class ContextCompatTest {
-    private val context = ApplicationProvider.getApplicationContext() as android.content.Context
+    private val context = ApplicationProvider.getApplicationContext() as Context
 
     @Test
     fun getSystemServiceName() {
+        val accessibilityServiceName = context.getSystemServiceName<AccessibilityManager>()
+        val invalidServiceName = context.getSystemServiceName<String>()
+
+        assertEquals(Context.ACCESSIBILITY_SERVICE, accessibilityServiceName)
+        assertNull(invalidServiceName)
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 23)
+    fun getSystemServiceNameApi23() {
+        val called = AtomicBoolean()
         val contextWrapper = object : ContextWrapper(context) {
             override fun getSystemServiceName(serviceClass: Class<*>): String? {
-                return if (serviceClass == Unit::class.java) "unit" else null
+                called.set(true)
+                return super.getSystemServiceName(serviceClass)
             }
         }
-        val unitValue = contextWrapper.getSystemServiceName<Unit>()
-        val stringValue = contextWrapper.getSystemServiceName<String>()
-        assertEquals("unit", unitValue)
-        assertNull(stringValue)
+        val layoutInflaterServiceName = contextWrapper.getSystemServiceName<LayoutInflater>()
+
+        assertEquals(Context.LAYOUT_INFLATER_SERVICE, layoutInflaterServiceName)
+        assertTrue(called.get())
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 33)
+    fun getSystemServiceNameApi33() {
+        val localeServiceName = context.getSystemServiceName<LocaleManager>()
+        assertEquals(Context.LOCALE_SERVICE, localeServiceName)
     }
 }
