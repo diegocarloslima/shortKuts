@@ -81,6 +81,7 @@ inline fun Activity.requestDragAndDropPermissionsSk(
  * @see ActivityCompat.requestPermissions
  *
  */
+@Throws(IllegalArgumentException::class)
 inline fun Activity.requestPermissionsSk(
     @Size(min = 1) permissions: List<String>,
     @IntRange(from = 0) requestCode: Int,
@@ -99,6 +100,7 @@ inline fun Activity.requestPermissionsSk(
  *
  * @see ActivityCompat.requireViewById
  */
+@Throws(IllegalArgumentException::class)
 inline fun <T : View> Activity.requireViewByIdSk(@IdRes id: Int): T =
     ActivityCompat.requireViewById(this, id)
 

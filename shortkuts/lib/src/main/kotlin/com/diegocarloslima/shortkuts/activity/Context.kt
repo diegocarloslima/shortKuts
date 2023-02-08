@@ -29,6 +29,7 @@ import android.content.Intent
  *
  * @see Context.startActivity
  */
+@Throws(ActivityNotFoundException::class)
 inline fun <reified A : Activity> Context.startActivity(intentBlock: Intent.() -> Unit = {}) {
     startActivity(Intent(this, A::class.java).apply(intentBlock))
 }
@@ -44,6 +45,7 @@ inline fun <reified A : Activity> Context.startActivity(intentBlock: Intent.() -
  * @see Context.startActivity
  * @see Intent.setAction
  */
+@Throws(ActivityNotFoundException::class)
 fun Context.startActivity(action: String, intentBlock: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(intentBlock))
 }

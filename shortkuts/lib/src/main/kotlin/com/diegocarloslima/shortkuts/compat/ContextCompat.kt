@@ -22,6 +22,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.content.res.Resources.NotFoundException
 import android.os.Handler
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -135,8 +136,11 @@ inline fun Context.createDeviceProtectedStorageContextSk(): Context? =
  *
  * @return A single color value in the form 0xAARRGGBB.
  *
+ * @throws NotFoundException if the given ID does not exist.
+ *
  * @see ContextCompat.getColor
  */
+@Throws(NotFoundException::class)
 @ColorInt
 inline fun Context.getColorSk(@ColorRes id: Int): Int =
     ContextCompat.getColor(this, id)
@@ -148,8 +152,11 @@ inline fun Context.getColorSk(@ColorRes id: Int): Int =
  *
  * @return A color state list, or `null` if the resource could not be resolved.
  *
+ * @throws NotFoundException if the given ID does not exist.
+ *
  * @see ContextCompat.getColorStateList
  */
+@Throws(NotFoundException::class)
 inline fun Context.getColorStateListSk(@ColorRes id: Int): ColorStateList? =
     ContextCompat.getColorStateList(this, id)
 
