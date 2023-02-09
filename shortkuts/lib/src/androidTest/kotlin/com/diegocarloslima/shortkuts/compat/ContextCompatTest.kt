@@ -17,10 +17,15 @@
 package com.diegocarloslima.shortkuts.compat
 
 import android.app.LocaleManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityManager
+import androidx.core.content.ContextCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SdkSuppress
 import org.junit.Test
@@ -62,5 +67,73 @@ class ContextCompatTest {
     fun getSystemServiceNameApi33() {
         val localeServiceName = context.getSystemServiceName<LocaleManager>()
         assertEquals(Context.LOCALE_SERVICE, localeServiceName)
+    }
+
+    @Test
+    @SdkSuppress(maxSdkVersion = 25)
+    fun registerReceiver() {
+        val called = AtomicBoolean()
+        val contextWrapper = object : ContextWrapper(context) {
+            override fun registerReceiver(
+                receiver: BroadcastReceiver?,
+                filter: IntentFilter?,
+                broadcastPermission: String?,
+                scheduler: Handler?,
+            ): Intent? {
+                called.set(true)
+                return super.registerReceiver(receiver, filter, broadcastPermission, scheduler)
+            }
+        }
+
+        contextWrapper.registerReceiver(
+            IntentFilter(),
+            ContextCompat.RECEIVER_EXPORTED,
+            TestReceiver(),
+        )
+
+        assertTrue(called.get())
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 26)
+    fun registerReceiverApi26() {
+        val called = AtomicBoolean()
+        val contextWrapper = object : ContextWrapper(context) {
+            override fun registerReceiver(
+                receiver: BroadcastReceiver?,
+                filter: IntentFilter?,
+                broadcastPermission: String?,
+                scheduler: Handler?,
+            ): Intent? {
+                called.set(true)
+                return super.registerReceiver(receiver, filter, broadcastPermission, scheduler)
+            }
+        }
+
+        contextWrapper.registerReceiver(
+            IntentFilter(),
+            ContextCompat.RECEIVER_NOT_EXPORTED,
+            TestReceiver(),
+        )
+
+        assertTrue(called.get())
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun registerReceiverNoFlags() {
+        context.registerReceiver(IntentFilter(), 0)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun registerReceiverBothFlags() {
+        context.registerReceiver(
+            IntentFilter(),
+            ContextCompat.RECEIVER_EXPORTED or ContextCompat.RECEIVER_NOT_EXPORTED,
+        )
+    }
+}
+
+private class TestReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
     }
 }
