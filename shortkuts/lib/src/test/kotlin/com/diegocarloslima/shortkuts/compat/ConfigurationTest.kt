@@ -14,9 +14,23 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.ui
+package com.diegocarloslima.shortkuts.compat
 
 import android.content.res.Configuration
+import org.junit.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
-inline val Configuration.nightMode: Boolean
-    get() = this.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+class ConfigurationTest {
+
+    @Test
+    fun isNightModeActive() {
+        val config = Configuration()
+        config.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED
+        assertFalse(config.isNightModeActive)
+        config.uiMode = Configuration.UI_MODE_NIGHT_YES
+        assertTrue(config.isNightModeActiveSk)
+        config.uiMode = Configuration.UI_MODE_NIGHT_NO
+        assertFalse(config.isNightModeActive)
+    }
+}

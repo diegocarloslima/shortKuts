@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.ui
+package com.diegocarloslima.shortkuts.short
 
-import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import com.diegocarloslima.shortkuts.compat.isNightModeActiveSk
 
-inline val Context.nightMode: Boolean get() = this.resources.nightMode
+/**
+ * Shortcut for [Configuration.isNightModeActiveSk]
+ *
+ * @see Configuration.isNightModeActiveSk
+ */
+inline val Resources.nightMode: Boolean get() = this.configuration.isNightModeActiveSk

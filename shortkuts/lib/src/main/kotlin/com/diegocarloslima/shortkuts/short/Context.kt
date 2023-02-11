@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.ui
+package com.diegocarloslima.shortkuts.short
 
+import android.content.Context
 import android.content.res.Resources
 
-inline val Resources.nightMode: Boolean get() = this.configuration.nightMode
+/**
+ * Shortcut for [Resources.nightMode]
+ *
+ * @see Resources.nightMode
+ */
+inline val Context.nightMode: Boolean get() = this.resources.nightMode

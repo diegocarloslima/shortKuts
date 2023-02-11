@@ -34,7 +34,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-class ContextCompatTest {
+class ContextTest {
     private val context = ApplicationProvider.getApplicationContext() as Context
 
     @Test
