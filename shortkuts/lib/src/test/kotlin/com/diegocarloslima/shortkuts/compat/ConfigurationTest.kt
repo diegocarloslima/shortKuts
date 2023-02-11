@@ -24,13 +24,13 @@ import kotlin.test.assertTrue
 class ConfigurationTest {
 
     @Test
-    fun isNightModeActive() {
+    fun isNightModeActiveSk() {
         val config = Configuration()
         config.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED
-        assertFalse(config.isNightModeActive)
+        assertFalse(config.isNightModeActiveSk)
         config.uiMode = Configuration.UI_MODE_NIGHT_YES
         assertTrue(config.isNightModeActiveSk)
         config.uiMode = Configuration.UI_MODE_NIGHT_NO
-        assertFalse(config.isNightModeActive)
+        assertFalse(config.isNightModeActiveSk)
     }
 }
