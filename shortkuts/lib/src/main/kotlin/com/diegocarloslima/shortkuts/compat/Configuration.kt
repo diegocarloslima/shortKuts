@@ -17,6 +17,17 @@
 package com.diegocarloslima.shortkuts.compat
 
 import android.content.res.Configuration
+import androidx.core.os.ConfigurationCompat
+import androidx.core.os.LocaleListCompat
+
+/**
+ * Uses [ConfigurationCompat] to obtain a [LocaleListCompat].
+ *
+ * @return the locale list.
+ *
+ * @see ConfigurationCompat.getLocales
+ */
+inline val Configuration.localesSk: LocaleListCompat get() = ConfigurationCompat.getLocales(this)
 
 /**
  * Compatibility extension that checks whether the [Configuration] is in night mode.
