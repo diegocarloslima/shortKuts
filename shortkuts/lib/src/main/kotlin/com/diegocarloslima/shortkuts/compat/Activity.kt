@@ -50,7 +50,7 @@ inline val Activity.isLaunchedFromBubbleSk: Boolean
  *
  * @see ActivityCompat.recreate
  */
-inline fun Activity.recreateSk() = ActivityCompat.recreate(this)
+inline fun Activity.recreateSk(): Unit = ActivityCompat.recreate(this)
 
 /**
  * Uses [ActivityCompat] to create a [DragAndDropPermissionsCompat] bound to this activity and
@@ -85,7 +85,7 @@ inline fun Activity.requestDragAndDropPermissionsSk(
 inline fun Activity.requestPermissionsSk(
     @Size(min = 1) permissions: List<String>,
     @IntRange(from = 0) requestCode: Int,
-) = ActivityCompat.requestPermissions(this, permissions.toTypedArray(), requestCode)
+): Unit = ActivityCompat.requestPermissions(this, permissions.toTypedArray(), requestCode)
 
 /**
  * Uses [ActivityCompat] to find a view that was identified by the `android:id` XML attribute that
@@ -101,7 +101,7 @@ inline fun Activity.requestPermissionsSk(
  * @see ActivityCompat.requireViewById
  */
 @Throws(IllegalArgumentException::class)
-inline fun <T : View> Activity.requireViewByIdSk(@IdRes id: Int): T =
+inline fun <V : View> Activity.requireViewByIdSk(@IdRes id: Int): V =
     ActivityCompat.requireViewById(this, id)
 
 /**
@@ -114,8 +114,10 @@ inline fun <T : View> Activity.requireViewByIdSk(@IdRes id: Int): T =
  *
  * @see ActivityCompat.setLocusContext
  */
-inline fun Activity.setLocusContextSk(locusId: LocusIdCompat? = null, bundle: Bundle? = null) =
-    ActivityCompat.setLocusContext(this, locusId, bundle)
+inline fun Activity.setLocusContextSk(
+    locusId: LocusIdCompat? = null,
+    bundle: Bundle? = null,
+): Unit = ActivityCompat.setLocusContext(this, locusId, bundle)
 
 /**
  * Uses [ActivityCompat] to know whether you should show UI with rationale before requesting a

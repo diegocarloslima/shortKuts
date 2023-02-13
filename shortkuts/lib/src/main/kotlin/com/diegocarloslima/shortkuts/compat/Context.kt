@@ -167,5 +167,5 @@ inline fun Context.getColorStateListSk(@ColorRes id: Int): ColorStateList? =
  *
  * @see ContextCompat.startForegroundService
  */
-inline fun Context.startForegroundServiceSk(intent: Intent) =
+inline fun Context.startForegroundServiceSk(intent: Intent): Unit =
     ContextCompat.startForegroundService(this, intent)
