@@ -24,7 +24,7 @@ import kotlin.test.assertTrue
 class ConfigurationTest {
 
     @Test
-    fun isNightModeActiveSk() {
+    fun isNightModeActive() {
         val config = Configuration()
         config.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED
         assertFalse(config.isNightModeActiveSk)

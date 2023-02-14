@@ -79,7 +79,7 @@ inline val Context.isDeviceProtectedStorageSk: Boolean
  *
  * @see ContextCompat.getSystemServiceName
  */
-inline fun <reified S : Any> Context.getSystemServiceName(): String? =
+inline fun <reified S : Any> Context.getSystemServiceNameSk(): String? =
     ContextCompat.getSystemServiceName(this, S::class.java)
 
 /**
@@ -96,7 +96,7 @@ inline fun <reified S : Any> Context.getSystemServiceName(): String? =
  *
  * @see ContextCompat.registerReceiver
  */
-inline fun Context.registerReceiver(
+inline fun Context.registerReceiverSk(
     filter: IntentFilter,
     @RegisterReceiverFlags flags: Int,
     receiver: BroadcastReceiver? = null,

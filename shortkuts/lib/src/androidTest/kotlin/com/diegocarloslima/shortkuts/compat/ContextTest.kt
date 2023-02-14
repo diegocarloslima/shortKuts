@@ -39,8 +39,8 @@ class ContextTest {
 
     @Test
     fun getSystemServiceName() {
-        val accessibilityServiceName = context.getSystemServiceName<AccessibilityManager>()
-        val invalidServiceName = context.getSystemServiceName<String>()
+        val accessibilityServiceName = context.getSystemServiceNameSk<AccessibilityManager>()
+        val invalidServiceName = context.getSystemServiceNameSk<String>()
 
         assertEquals(Context.ACCESSIBILITY_SERVICE, accessibilityServiceName)
         assertNull(invalidServiceName)
@@ -56,7 +56,7 @@ class ContextTest {
                 return super.getSystemServiceName(serviceClass)
             }
         }
-        val layoutInflaterServiceName = contextWrapper.getSystemServiceName<LayoutInflater>()
+        val layoutInflaterServiceName = contextWrapper.getSystemServiceNameSk<LayoutInflater>()
 
         assertEquals(Context.LAYOUT_INFLATER_SERVICE, layoutInflaterServiceName)
         assertTrue(called.get())
@@ -65,7 +65,7 @@ class ContextTest {
     @Test
     @SdkSuppress(minSdkVersion = 33)
     fun getSystemServiceNameApi33() {
-        val localeServiceName = context.getSystemServiceName<LocaleManager>()
+        val localeServiceName = context.getSystemServiceNameSk<LocaleManager>()
         assertEquals(Context.LOCALE_SERVICE, localeServiceName)
     }
 
@@ -85,7 +85,7 @@ class ContextTest {
             }
         }
 
-        contextWrapper.registerReceiver(
+        contextWrapper.registerReceiverSk(
             IntentFilter(),
             ContextCompat.RECEIVER_EXPORTED,
             TestReceiver(),
@@ -110,7 +110,7 @@ class ContextTest {
             }
         }
 
-        contextWrapper.registerReceiver(
+        contextWrapper.registerReceiverSk(
             IntentFilter(),
             ContextCompat.RECEIVER_NOT_EXPORTED,
             TestReceiver(),
@@ -121,12 +121,12 @@ class ContextTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun registerReceiverNoFlags() {
-        context.registerReceiver(IntentFilter(), 0)
+        context.registerReceiverSk(IntentFilter(), 0)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun registerReceiverBothFlags() {
-        context.registerReceiver(
+        context.registerReceiverSk(
             IntentFilter(),
             ContextCompat.RECEIVER_EXPORTED or ContextCompat.RECEIVER_NOT_EXPORTED,
         )
