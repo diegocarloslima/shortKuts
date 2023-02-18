@@ -49,7 +49,7 @@ class ContextTest {
     @Test
     fun startActivityIntentBlock() {
         withFirstActivity {
-            startActivity<SecondContextStartActivity> {
+            this.startActivity<SecondContextStartActivity> {
                 putExtra(TEST_EXTRA, true)
             }
         }
@@ -64,14 +64,14 @@ class ContextTest {
     @Test(expected = ActivityNotFoundException::class)
     fun startActivityUnregistered() {
         withFirstActivity {
-            startActivity<UnregisteredContextStartActivity>()
+            this.startActivity<UnregisteredContextStartActivity>()
         }
     }
 
     @Test
     fun startActivityActionIntentBlock() {
         withFirstActivity {
-            startActivity(ACTION_TEST) {
+            this.startActivity(ACTION_TEST) {
                 putExtra(TEST_EXTRA, true)
             }
         }
@@ -85,10 +85,8 @@ class ContextTest {
 
     @Test(expected = ActivityNotFoundException::class)
     fun startActivityInvalidAction() {
-        with(ActivityScenario.launch(FirstContextStartActivity::class.java)) {
-            onActivity { activity ->
-                activity.startActivity(INVALID_ACTION)
-            }
+        withFirstActivity {
+            this.startActivity(INVALID_ACTION)
         }
     }
 }

@@ -34,7 +34,7 @@ import java.io.Serializable
  * @see ParcelCompat.readArray
  */
 inline fun <reified T> Parcel.readArraySk(loader: ClassLoader? = null): Array<T>? =
-    ParcelCompat.readArray(this, loader, T::class.java)
+    ParcelCompat.readArray(this, loader, T::class.java)?.map { it as T }?.toTypedArray()
 
 /**
  * Uses [ParcelCompat] to read and return a new [ArrayList] of [T] from the parcel at the current

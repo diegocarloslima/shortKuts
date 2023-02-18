@@ -18,22 +18,40 @@ package com.diegocarloslima.shortkuts.compat
 
 import android.content.pm.Signature
 import android.os.Parcel
+import org.junit.Assert.assertArrayEquals
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class ParcelTest {
 
     @Test
-    fun readList() {
-        val parcel = Parcel.obtain()
+    fun readArray() {
+        withParcel {
+            val array = arrayOf(Signature("1234"), null, Signature("abcd"))
+            this.writeArray(array)
+            this.setDataPosition(0)
 
-        val list = listOf(Signature("1234"), null, Signature("abcd"))
-        parcel.writeList(list)
-        parcel.setDataPosition(0)
-
-        val readList = mutableListOf<Signature?>()
-        parcel.readListSk(readList, Signature::class.java.classLoader)
-        assertEquals(list, readList)
-        parcel.recycle()
+            val readArray = this.readArraySk<Signature?>(Signature::class.java.classLoader)
+            assertArrayEquals(array, readArray)
+        }
     }
+
+    @Test
+    fun readList() {
+        withParcel {
+            val list = listOf(Signature("1234"), null, Signature("abcd"))
+            this.writeList(list)
+            this.setDataPosition(0)
+
+            val readList = mutableListOf<Signature?>()
+            this.readListSk(readList, Signature::class.java.classLoader)
+            assertEquals(list, readList)
+        }
+    }
+}
+
+private fun withParcel(block: Parcel.() -> Unit) {
+    val parcel = Parcel.obtain()
+    parcel.block()
+    parcel.recycle()
 }
