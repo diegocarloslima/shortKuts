@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.lang
+package com.diegocarloslima.shortkuts.core.util
 
+import android.util.SparseArray
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ArrayTest {
+class SparseArrayTest {
 
     @Test
     fun sizeOfNull() {
-        val nullValue: Array<*>? = null
+        val nullValue: SparseArray<*>? = null
         assertEquals(0, nullValue.size)
     }
 
     @Test
     fun sizeOfNotNull() {
-        val value = arrayOf("test")
-        val nullableValue: Array<String>? = value
+        val value = SparseArray<String>()
+        value[0] = "foo"
+        value[2] = "bar"
+
+        val nullableValue: SparseArray<String>? = value
         assertEquals(value.size, nullableValue.size)
     }
 }

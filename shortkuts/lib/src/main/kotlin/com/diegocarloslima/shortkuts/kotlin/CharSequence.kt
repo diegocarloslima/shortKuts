@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.lang
+package com.diegocarloslima.shortkuts.kotlin
 
 /**
- * Convenience property for a nullable [Array] object. It will return the size of the object or
- * zero if the receiver is `null`.
+ * Convenience property for a nullable [CharSequence] object. It will return the length of the
+ * object or zero if the receiver is `null`.
  *
- * @see Array.size
+ * @see CharSequence.length
  */
-inline val <T> Array<T>?.size: Int get() = this?.size ?: 0
+inline val CharSequence?.length: Int get() = this?.length ?: 0

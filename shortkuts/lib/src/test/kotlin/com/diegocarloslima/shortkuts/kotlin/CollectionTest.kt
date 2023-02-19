@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.lang
+package com.diegocarloslima.shortkuts.kotlin
 
 import org.junit.Test
 import kotlin.test.assertEquals

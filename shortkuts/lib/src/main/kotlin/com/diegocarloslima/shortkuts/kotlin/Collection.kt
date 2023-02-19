@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.lang
+package com.diegocarloslima.shortkuts.kotlin
 
 /**
  * Convenience property for a nullable [Collection] object. It will return the size of the object or

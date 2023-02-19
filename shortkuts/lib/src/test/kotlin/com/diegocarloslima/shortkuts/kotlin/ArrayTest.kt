@@ -14,12 +14,23 @@
  * limitations under the License.
  */
 
-package com.diegocarloslima.shortkuts.lang
+package com.diegocarloslima.shortkuts.kotlin
 
-/**
- * Convenience property for a nullable [CharSequence] object. It will return the length of the
- * object or zero if the receiver is `null`.
- *
- * @see CharSequence.length
- */
-inline val CharSequence?.length: Int get() = this?.length ?: 0
+import org.junit.Test
+import kotlin.test.assertEquals
+
+class ArrayTest {
+
+    @Test
+    fun sizeOfNull() {
+        val nullValue: Array<*>? = null
+        assertEquals(0, nullValue.size)
+    }
+
+    @Test
+    fun sizeOfNotNull() {
+        val value = arrayOf("test")
+        val nullableValue: Array<String>? = value
+        assertEquals(value.size, nullableValue.size)
+    }
+}

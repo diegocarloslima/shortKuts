@@ -139,7 +139,9 @@ inline fun <reified T> Parcel.readParcelableCreatorSk(
 inline fun <reified T> Parcel.readParcelableListSk(
     list: MutableList<T>,
     loader: ClassLoader? = null,
-): MutableList<T> = ParcelCompat.readParcelableList(this, list, loader, T::class.java)
+) {
+    ParcelCompat.readParcelableList(this, list, loader, T::class.java)
+}
 
 /**
  * Uses [ParcelCompat] to read and return a new [Serializable] [S] from the parcel at the
