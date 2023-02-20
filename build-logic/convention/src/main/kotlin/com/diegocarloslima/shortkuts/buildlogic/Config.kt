@@ -16,11 +16,17 @@
 
 package com.diegocarloslima.shortkuts.buildlogic
 
+import org.gradle.api.JavaVersion
+
 internal object Config {
 
     object Android {
         const val COMPILE_SDK = 33
         const val MIN_SDK = 21
         const val TARGET_SDK = 33
+    }
+
+    object Java {
+        val VERSION = JavaVersion.VERSION_11
     }
 }
