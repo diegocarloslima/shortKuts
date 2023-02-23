@@ -16,6 +16,9 @@
 
 package com.diegocarloslima.shortkuts.kotlin
 
+import kotlin.collections.contains as kContains
+import kotlin.collections.isEmpty as kIsEmpty
+
 /**
  * Convenience property for a nullable [Array] object. It will return the size of the object or
  * zero if the receiver is `null`.
@@ -23,3 +26,32 @@ package com.diegocarloslima.shortkuts.kotlin
  * @see Array.size
  */
 inline val <T> Array<T>?.size: Int get() = this?.size ?: 0
+
+/**
+ * Convenience function for a nullable [Array] object. It will return `true` if the object is
+ * empty or if the receiver is `null`.
+ *
+ * @see Array.isEmpty
+ */
+inline fun <T> Array<T>?.isEmpty(): Boolean = this?.kIsEmpty() ?: true
+
+/**
+ * Convenience function for a nullable [Array] object. It will return `true` if the object is not
+ * empty and false if it's empty or the receiver is `null
+ *
+ * @see Array.isNotEmpty
+ */
+inline fun <T> Array<T>?.isNotEmpty(): Boolean = !this.isEmpty()
+
+/**
+ * Convenience function for checking an element in a nullable [Array] object.
+ *
+ * @param element [T] to be checked if it's contained in the array.
+ *
+ * @return `false` if the receiver is `null` of it the element is not contained in this array.
+ * Returns `true` otherwise.
+ *
+ * @see Array.contains
+ */
+inline operator fun <T> Array<out T>?.contains(element: T): Boolean =
+    this?.kContains(element) ?: false

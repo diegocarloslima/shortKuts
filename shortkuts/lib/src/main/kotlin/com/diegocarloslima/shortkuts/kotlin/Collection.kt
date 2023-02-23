@@ -25,17 +25,25 @@ package com.diegocarloslima.shortkuts.kotlin
 inline val <T> Collection<T>?.size: Int get() = this?.size ?: 0
 
 /**
- * Convenience property for a nullable [Collection] object. It will return `true` if the object is
- * empty of if the receiver is `null`.
+ * Convenience function for a nullable [Collection] object. It will return `true` if the object is
+ * empty or if the receiver is `null`.
  *
  * @see Collection.isEmpty
  */
 inline fun <T> Collection<T>?.isEmpty(): Boolean = this?.isEmpty() ?: true
 
 /**
+ * Convenience function for a nullable [Collection] object. It will return `true` if the object is not
+ * empty and false if it's empty or the receiver is `null
+ *
+ * @see Collection.isNotEmpty
+ */
+inline fun <T> Collection<T>?.isNotEmpty(): Boolean = !this.isEmpty()
+
+/**
  * Convenience function for checking an element in a nullable [Collection] object.
  *
- * @param element [T] to be checked if its contained in the collection.
+ * @param element [T] to be checked if it's contained in the collection.
  *
  * @return `false` if the receiver is `null` of it the element is not contained in this collection.
  * Returns `true` otherwise.
