@@ -40,6 +40,7 @@ class CollectionTest {
     fun isEmptyOfNull() {
         val nullValue: Collection<*>? = null
         assertTrue(nullValue.isEmpty())
+        assertFalse(nullValue.isNotEmpty())
     }
 
     @Test
@@ -47,6 +48,7 @@ class CollectionTest {
         val value = listOf("test")
         val nullableValue: List<String>? = value
         assertEquals(value.isEmpty(), nullableValue.isEmpty())
+        assertEquals(value.isNotEmpty(), nullableValue.isNotEmpty())
     }
 
     @Test

@@ -19,6 +19,8 @@ package com.diegocarloslima.shortkuts.core.util
 import android.util.SparseArray
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class SparseArrayTest {
 
@@ -36,5 +38,52 @@ class SparseArrayTest {
 
         val nullableValue: SparseArray<String>? = value
         assertEquals(value.size, nullableValue.size)
+    }
+
+    @Test
+    fun isEmptyOfNull() {
+        val nullValue: SparseArray<*>? = null
+        assertTrue(nullValue.isEmpty())
+        assertFalse(nullValue.isNotEmpty())
+    }
+
+    @Test
+    fun isEmptyOfNotNull() {
+        val value = SparseArray<String>()
+        value[0] = "test"
+
+        val nullableValue: SparseArray<String>? = value
+        assertEquals(value.isEmpty(), nullableValue.isEmpty())
+        assertEquals(value.isNotEmpty(), nullableValue.isNotEmpty())
+    }
+
+    @Test
+    fun containsOfNull() {
+        val nullValue: SparseArray<String>? = null
+        assertFalse(nullValue.containsKey(0))
+        assertFalse(nullValue.containsValue("test"))
+    }
+
+    @Test
+    fun containsOfNotNull() {
+        val value = SparseArray<String>()
+        value[1] = "test"
+
+        val nullableValue: SparseArray<String>? = value
+        val value1 = "test"
+        val value2 = "foo"
+
+        val key0 = 0
+        val key1 = 1
+
+        assertEquals(value.containsKey(key0), nullableValue.containsKey(key0))
+        assertEquals(value.containsKey(key1), nullableValue.containsKey(key1))
+        assertFalse(nullableValue.containsKey(key0))
+        assertTrue(nullableValue.containsKey(key1))
+
+        assertEquals(value.containsValue(value1), nullableValue.containsValue(value1))
+        assertEquals(value.containsValue(value2), nullableValue.containsValue(value2))
+        assertTrue(nullableValue.containsValue(value1))
+        assertFalse(nullableValue.containsValue(value2))
     }
 }
