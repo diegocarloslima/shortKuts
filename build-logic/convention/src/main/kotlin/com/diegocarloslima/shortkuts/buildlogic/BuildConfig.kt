@@ -16,24 +16,17 @@
 
 package com.diegocarloslima.shortkuts.buildlogic
 
-import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.Project
+import org.gradle.api.JavaVersion
 
-internal fun Project.configureBaseKotlinAndroid(commonExtension: CommonExtension<*, *, *, *>) {
-    commonExtension.apply {
-        compileSdk = Config.Android.COMPILE_SDK
+internal object BuildConfig {
 
-        defaultConfig {
-            minSdk = Config.Android.MIN_SDK
-        }
+    object Android {
+        const val COMPILE_SDK = 33
+        const val MIN_SDK = 21
+        const val TARGET_SDK = 33
+    }
 
-        compileOptions {
-            sourceCompatibility = Config.Java.VERSION
-            targetCompatibility = Config.Java.VERSION
-        }
-
-        kotlinOptions {
-            jvmTarget = Config.Java.VERSION.toString()
-        }
+    object Java {
+        val VERSION = JavaVersion.VERSION_11
     }
 }
