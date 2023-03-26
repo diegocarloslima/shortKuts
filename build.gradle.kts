@@ -16,6 +16,7 @@
 
 import com.diffplug.gradle.spotless.SpotlessExtension
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
@@ -45,8 +46,8 @@ allprojects {
                     "ktlint_code_style" to "android",
                 ),
             )
-            // Look for the first line that starts with a word character (not a comment)
-            licenseHeaderFile(rootProject.file("spotless/copyright.kts.txt"), "(^\\w)")
+            // Look for the first line that starts with a word or a '@' character (not a comment)
+            licenseHeaderFile(rootProject.file("spotless/copyright.kts.txt"), """^[\w@]""")
         }
         format("xml") {
             target("**/*.xml")
