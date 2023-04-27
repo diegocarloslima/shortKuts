@@ -7,6 +7,7 @@ androidxCore = "1.10.0"
 androidxEspresso = "3.5.1"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
+androidxTestRunner = "1.5.2"
 junit = "4.13.2"
 kotlin = "1.8.20"
 ktlint = "0.48.2"
@@ -25,6 +26,7 @@ androidx-test-core = { group = "androidx.test", name = "core", version.ref = "an
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "androidxEspresso" }
 androidx-test-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 # Dependencies of the included build-logic

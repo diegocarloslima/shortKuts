@@ -33,4 +33,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.espresso.intents)
     androidTestImplementation(libs.androidx.test.junit.ktx)
+    androidTestImplementation(libs.androidx.test.runner)
 }
