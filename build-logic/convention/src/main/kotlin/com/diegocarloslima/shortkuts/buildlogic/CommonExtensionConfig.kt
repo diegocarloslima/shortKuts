@@ -19,7 +19,7 @@ package com.diegocarloslima.shortkuts.buildlogic
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 
-internal fun Project.configureCommonAndroid(commonExtension: CommonExtension<*, *, *, *>) {
+internal fun Project.configureCommonAndroid(commonExtension: CommonExtension<*, *, *, *, *>) {
     commonExtension.apply {
         compileSdk = BuildConfig.Android.COMPILE_SDK
 
