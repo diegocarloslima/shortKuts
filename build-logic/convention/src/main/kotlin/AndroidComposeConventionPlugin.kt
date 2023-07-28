@@ -27,7 +27,7 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            extensions.configure<CommonExtension<*, *, *, *>>("android") {
+            extensions.configure<CommonExtension<*, *, *, *, *>>("android") {
                 buildFeatures {
                     compose = true
                 }
